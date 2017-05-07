@@ -29,6 +29,10 @@ module.exports = function(app) {
   app.get("/register", function (req, res) {
       res.render("register", {title: "Register Page", layout: "application"});
   });
+  app.post("/register", function (req, res) {
+      console.log(req.body);
+  });
+
   // xet Router
 
   /*app.get("/",  );
