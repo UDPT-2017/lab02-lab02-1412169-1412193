@@ -6,7 +6,9 @@ var index = require("../app/controllers/index.js");
 module.exports = function(app) {
 
   var homeRouter = Router()
-    .get("/", function () {});
+    .get("/", function (req, res) {
+        res.render("home", {title: "Hello Home", layout: "application"});
+    });
 
   var userRouter = Router()
     .get("/", function () {});
