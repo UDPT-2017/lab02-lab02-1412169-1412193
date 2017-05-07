@@ -23,6 +23,9 @@ module.exports = function(app) {
   app.use("/user", userRouter);
   app.use("/photo", aboutRouter);
   app.use("/contact", messagesRouter);
+  app.get("/login", function (req, res) {
+      res.render("login", {title: "Login Page", layout: "application"});
+  })
   // xet Router
 
   /*app.get("/",  );
