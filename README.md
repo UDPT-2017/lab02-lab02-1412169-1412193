@@ -3,8 +3,8 @@
 **Name of your app** là một bài tập 2 tại môn UDPT. Ứng dụng cho phép người dùng gửi tin nhắn (email) cho người dùng khác.
 
 Thành viên:
-* [ ] **MSSV1** Tên sinh viên 1 (tên tài khoản github)
-* [ ] **MSSV2** Tên sinh viên 2 (tên tài khoản github)
+* [x] **1412193** Nguyễn Thái Học (NguyenThaiHoc1)
+* [x] **1412169** Hồ Thảo Hiền (HoThaoHien)
 
 URL: **URL hosting của bài tập**
 
