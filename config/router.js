@@ -25,7 +25,10 @@ module.exports = function(app) {
   app.use("/contact", messagesRouter);
   app.get("/login", function (req, res) {
       res.render("login", {title: "Login Page", layout: "application"});
-  })
+  });
+  app.get("/register", function (req, res) {
+      res.render("register", {title: "Register Page", layout: "application"});
+  });
   // xet Router
 
   /*app.get("/",  );
