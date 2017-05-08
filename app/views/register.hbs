@@ -9,6 +9,7 @@
                 </div>
 
                 <form class="form-signin" action="/register" method="post" onsubmit="return CheckRegister();">
+                    {{> Checkerror}}
                     <div class="alert alert-danger" role="alert" style="display:none;" id="error-inf">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                         <span class="sr-only" id="Common-err"></span>
