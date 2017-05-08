@@ -1,13 +1,13 @@
 {{#if FailMess}}
       <div class="alert alert-danger" role="alert">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only" id="Common-err">{{FailMess}}</span>
+          {{FailMess}}
       </div>
 {{else}}
   {{#if successMess}}
-      <div class="alert alert-danger" role="alert">
+      <div class="alert alert-success" role="alert">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only" id="Common-err">{{successMess}}</span>
+          {{successMess}}
       </div>
   {{/if}}
 {{/if}}
