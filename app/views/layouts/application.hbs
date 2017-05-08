@@ -51,6 +51,51 @@
        }, function() {
          $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
        });
+       function turnoff_home() {
+          $("#home").removeClass("active");
+
+       }
+       function turnon_home() {
+         $("#home").addClass("active");
+       }
+
+       function turnoff_about() {
+          $("#about").removeClass("active");
+       }
+       function turnon_about() {
+          $("#about").addClass("active");
+       }
+
+       function turnoff_user() {
+          $("#user").removeClass("active");
+       }
+       function turnon_user() {
+          $("#user").addClass("active");
+       }
+
+       function turnoff_messages() {
+          $("#messages").removeClass("active");
+       }
+       function turnon_messages() {
+          $("#messages").addClass("active");
+       }
+
+       $(function () {
+         var pathname = window.location.pathname; // Returns path only
+         var url      = window.location.href;
+         if(pathname === "/") {
+           turnon_home();
+           turnoff_messages();
+           turnoff_user();
+           turnoff_about();
+         }
+         else if (pathname === "/about"){
+           turnoff_home();
+           turnoff_messages();
+           turnoff_user();
+           turnon_about();
+         }
+       })
     </script>
   </body>
 </html>

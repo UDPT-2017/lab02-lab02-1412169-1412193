@@ -22,7 +22,7 @@ var User = {
       var param = [user.email];
       pool.query(query, param, function(err, res) {
           if(err) {
-            return callback("0", "Error is saveUser"); // that bai
+            callback("0", "Error is saveUser"); // that bai
           }
           var number = res.rows.length;
           if(number !== 0) {
@@ -37,6 +37,23 @@ var User = {
               }
               callback("1", "Register is Success!"); // thanh cong
             });
+          }
+      });
+  },
+  checkUser : function (email, password, callback) {
+      var query = 'Select * from "user" where email = $1;';
+      var param = [email];
+      pool.query(query, param, function (err, resulf) {
+          var row = resulf.rows.length;
+          if(row === 0) {
+            callback("0", "Email not found !", null);
+          }else {
+            var passwordDB = resulf.rows[0].password;
+            if(passwordDB !== password) {
+              callback("0", "Password Incorrect !", null);
+            }else {
+              callback("1", "Login is Successed !", resulf.rows[0]);
+            }
           }
       });
   }

@@ -46,6 +46,30 @@ var feature = {
            }
        });
      }
+  },
+  login : function (req, res) {
+      var email = req.body.femail;
+      var password = req.body.fpassword;
+
+      db.checkUser(email, password, function (text, message, userPre) {
+          // text chua loai loi . message : ten loi, user gia tri tra ve de ghi vao session
+          if(text === "0") {
+            res.render ("login", {
+              title: "login",
+              layout: "application",
+              FailMess: message,
+              user : req.session.user
+            });
+          }else {
+            req.session.user = userPre;
+            res.render ("login", {
+              title: "login",
+              layout: "application",
+              successMess: message,
+              user : req.session.user
+            });
+          }
+      });
   }
 };
 module.exports = feature;

@@ -9,7 +9,7 @@ module.exports = function(app) {
 
   var homeRouter = Router()
     .get("/", function (req, res) {
-        res.render("home", {title: "Hello Home", layout: "application"});
+        res.render("home", {title: "Hello Home", layout: "application", user: req.session.user});
     });
 
   var userRouter = Router()
@@ -25,16 +25,19 @@ module.exports = function(app) {
   app.use("/user", userRouter);
   app.use("/photo", aboutRouter);
   app.use("/contact", messagesRouter);
+
   app.get("/login", function (req, res) {
-      res.render("login", {title: "Login Page", layout: "application"});
+      res.render("login", {title: "Login Page", layout: "application", user: req.session.user});
   });
+  app.post("/login", index.featureUser.login);
+
   app.get("/register", function (req, res) {
-      res.render("register", {title: "Register Page", layout: "application"});
+      res.render("register", {title: "Register Page", layout: "application", user: req.session.user});
   });
   app.post("/register", index.featureUser.register);
 
   app.get("/about", function (req, res) {
-      res.render("about", {title: "About Page", layout: "application"});
+      res.render("about", {title: "About Page", layout: "application" , user: req.session.user});
   });
 
   // xet Router
