@@ -40,6 +40,10 @@ module.exports = function(app) {
       res.render("about", {title: "About Page", layout: "application" , user: req.session.user});
   });
 
+
+  app.get("/users", function (req, res) {
+      res.render("user", {title: "User Page", layout: "application" , user: req.session.user});
+  });
   // xet Router
 
   /*app.get("/",  );

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name=”viewport” content=”width=device-width, initial-scale=1″>
     <link rel="stylesheet" type="text/css" href="css/supportSelect.css">
@@ -9,93 +10,153 @@
     <link rel="stylesheet" href="/component/flat-ui/dist/css/flat-ui.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <title>{{title}}</title>
-  </head>
-  <body>
+</head>
+
+<body>
 
     <div class="wapper">
-      <div class="header">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              {{> header}} <!-- partical -->
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{> header}}
+                        <!-- partical -->
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="body-web">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <h1>{{message}}</h1>
-                {{{body}}}
+        <div class="body-web">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{{body}}}
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="footer-web" style="margin-top: 50px;">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              {{> footer}}
+        <div class="footer-web" style="margin-top: 50px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{> footer}}
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
     <script src="/component/jquery/dist/jquery.js"></script>
     <script src="/component/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="/component/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
     <script type="text/javascript">
-       $('ul.nav li.dropdown').hover(function() {
-         $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-       }, function() {
-         $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-       });
-       function turnoff_home() {
-          $("#home").removeClass("active");
+        $('ul.nav li.dropdown').hover(function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+        }, function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+        });
 
-       }
-       function turnon_home() {
-         $("#home").addClass("active");
-       }
 
-       function turnoff_about() {
-          $("#about").removeClass("active");
-       }
-       function turnon_about() {
-          $("#about").addClass("active");
-       }
+        function turnoff_home() {
+            $("#home").removeClass("active");
 
-       function turnoff_user() {
-          $("#user").removeClass("active");
-       }
-       function turnon_user() {
-          $("#user").addClass("active");
-       }
+        }
 
-       function turnoff_messages() {
-          $("#messages").removeClass("active");
-       }
-       function turnon_messages() {
-          $("#messages").addClass("active");
-       }
+        function turnon_home() {
+            $("#home").addClass("active");
+        }
 
-       $(function () {
-         var pathname = window.location.pathname; // Returns path only
-         var url      = window.location.href;
-         if(pathname === "/") {
-           turnon_home();
-           turnoff_messages();
-           turnoff_user();
-           turnoff_about();
-         }
-         else if (pathname === "/about"){
-           turnoff_home();
-           turnoff_messages();
-           turnoff_user();
-           turnon_about();
-         }
-       })
+        function turnoff_about() {
+            $("#about").removeClass("active");
+        }
+
+        function turnon_about() {
+            $("#about").addClass("active");
+        }
+
+        function turnoff_user() {
+            $("#user").removeClass("active");
+        }
+
+        function turnon_user() {
+            $("#user").addClass("active");
+        }
+
+        function turnoff_messages() {
+            $("#messages").removeClass("active");
+        }
+
+        function turnon_messages() {
+            $("#messages").addClass("active");
+        }
+
+        $(function() {
+
+
+            var pathname = window.location.pathname; // Returns path only
+            var url = window.location.href;
+            if (pathname === "/") {
+                turnon_home();
+                turnoff_messages();
+                turnoff_user();
+                turnoff_about();
+            } else if (pathname === "/about") {
+                turnoff_home();
+                turnoff_messages();
+                turnoff_user();
+                turnon_about();
+            }
+
+
+
+            $('[data-toggle="tooltip"]').tooltip(); // cho phep hien thi cac cuc nho
+
+            $('[data-command="toggle-search"]').on('click', function(event) {
+                event.preventDefault();
+                $(this).toggleClass('hide-search'); // toggleClass dung de remove or add 1 class nao do
+
+                if ($(this).hasClass('hide-search')) { // neu ma no class hide-search
+                    $('#row-frame').stop(true, true).delay(100).fadeOut(300);
+                } else {
+                    $('#row-frame').stop(true, true).delay(100).fadeIn(300);
+                }
+            }); // tao su kien click cho nut kia thoi
+            $('[data-command="toggle-search1"]').on('click', function(event) {
+                event.preventDefault();
+                $(this).toggleClass('hide-search'); // toggleClass dung de remove or add 1 class nao do
+
+                if ($(this).hasClass('hide-search')) { // neu ma no class hide-search
+                    $('#row-frame1').stop(true, true).delay(100).fadeOut(300);
+                } else {
+                    $('#row-frame1').stop(true, true).delay(100).fadeIn(300);
+                }
+            }); // tao su kien click cho nut kia thoi
+
+            $('#contact-list').searchable({
+                searchField: '#contact-list-search',
+                selector: 'li',
+                childSelector: '.name', // search theo selector nao
+                show: function(elem) {
+                    elem.slideDown(100);
+                },
+                hide: function(elem) {
+                    elem.slideUp(100);
+                }
+            });
+
+            $('#contact-list1').searchable({
+                searchField: '#contact-list-search1',
+                selector: 'li',
+                childSelector: '.name', // search theo selector nao
+                show: function(elem) {
+                    elem.slideDown(100);
+                },
+                hide: function(elem) {
+                    elem.slideUp(100);
+                }
+            });
+
+        })
     </script>
-  </body>
+</body>
+
 </html>
