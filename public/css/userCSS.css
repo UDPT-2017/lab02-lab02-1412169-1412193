@@ -10,6 +10,10 @@
 }
 #frame-friendlist {
 }
+#contact-list1{
+    max-height: 500px;
+    overflow-y:scroll;
+}
 #contact-list{
     max-height: 500px;
     overflow-y:scroll;

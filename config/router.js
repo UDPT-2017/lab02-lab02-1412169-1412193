@@ -5,6 +5,40 @@ var index = require("../app/controllers/index.js");
 
 // register
 
+// test
+var SinhVien = [
+  {
+    fullname: "Thai Hoc",
+    email: "thaihocmap123@gmail.com",
+    phone: "0987677383"
+  },
+  {
+    fullname: "Van A",
+    email: "nguyenvana@gmail.com",
+    phone: "0982131239"
+  },
+  {
+    fullname: "Van B",
+    email: "nguyenvanB@gmail.com",
+    phone: "0124354238"
+  },
+  {
+    fullname: "Van C",
+    email: "nguyenvanC@gmail.com",
+    phone: "0124354238"
+  },
+  {
+    fullname: "Van D",
+    email: "nguyenvanD@gmail.com",
+    phone: "0124354238"
+  },
+  {
+    fullname: "Van E",
+    email: "nguyenvanE@gmail.com",
+    phone: "0124354238"
+  }
+];
+
 module.exports = function(app) {
 
   var homeRouter = Router()
@@ -43,6 +77,11 @@ module.exports = function(app) {
 
   app.get("/users", function (req, res) {
       res.render("user", {title: "User Page", layout: "application" , user: req.session.user});
+  });
+
+  // test ajax
+  app.get("/friends", function (req, res) {
+      res.send({sinhvien: SinhVien});
   });
   // xet Router
 
