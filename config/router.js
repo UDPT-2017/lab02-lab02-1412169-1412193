@@ -140,8 +140,22 @@ module.exports = function(app) {
         res.send("Add friend is success !");
     });
 
+    app.get("/messages", function (req, res) {
+        res.end("Hello This is a messages !!");
+    });
 
+    app.get("/newmessage", function (req, res) {
+        res.render("newmessages", {
+            title: "New Messages",
+            layout: "application",
+            user: req.session.user,
+            list: DanhSachBanBe
+        });
+    });
 
+    app.post("/newmessage", function (req, res) {
+        res.redirect("/messages");
+    });
 
 
 
