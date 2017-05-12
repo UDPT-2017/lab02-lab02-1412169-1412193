@@ -24,21 +24,25 @@
               </div>
 
               <ul class="list-group" id="contact-list1">
-                <li class="list-group-item">
-                <div class="col-xs-12 col-sm-12">
-                    <!-- email fullname phone-->
-                    <p class="name"><span class="name glyphicon glyphicon-user" style="width:50px;"></span>Scott Stevens</p>
-                    <p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>thaihocmap123@gmail.com</p>
-                    <p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>+91 900808 00000</p>
-                    <div class="pull-right">
-                      <button type="button" class = "btn btn-success " href="#" data-toggle="tooltip" data-placement="top" title="Add Friends">
-                        <span class="glyphicon glyphicon-plus"></span>
-                      </button>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </li>
-
+                {{#if sv.length}}
+                    {{#each sv}}
+                        <li class="list-group-item">
+                            <div class="col-xs-12 col-sm-12">
+                                <!-- email fullname phone-->
+                                <input class="idText" type="hidden" name="id" value="{{this.id}}">
+                                <p class="fullname" data-search="names"><span class="name glyphicon glyphicon-user" style="width:50px;"></span>{{this.fullname}}</p>
+                                <p class="email"><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>{{this.email}}</p>
+                                <p class="phone"><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>{{this.phone}}</p>
+                                <div class="pull-right">
+                                  <button button-add="addfriendBTN" type="button" class = "btn btn-success " data-toggle="tooltip" data-placement="top" title="Add Friends" id="addfriend">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    {{/each}}
+                {{/if}}
               </ul>
           </div>
         </div>
@@ -47,7 +51,7 @@
                 <div class="panel-heading c-list">
                     <span class="title">Friend List</span>
                     <div class="pull-right">
-                      <a class = "glyphicon glyphicon-plus" href="#cant-do-all-the-work-for-you" data-toggle="tooltip" data-placement="top" title="Add Friends"></a>
+                      <a class="" id="refreshfriend" data-command="" data-toggle="tooltip" data-placement="top" title="Refresh" style="display:none;"><i class="glyphicon glyphicon-refresh"></i></a>
                       <a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Search Friends"><i class="glyphicon glyphicon-search"></i></a>
                     </div>
                 </div>
@@ -63,22 +67,28 @@
                     </div>
                 </div>
                 <ul class="list-group" id="contact-list">
-                      <li class="list-group-item">
-                          <div class="col-xs-12 col-sm-12">
-                            <p class="name" data-search="names"><span class="name glyphicon glyphicon-user" style="width:50px;"></span>Scott Stevens</p>
-                            <p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>thaihocmap123@gmail.com</p>
-                            <p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>+91 900808 00000</p>
-                            <div class="pull-right">
-                              <button type="button" class = "btn btn-danger " href="#" data-toggle="tooltip" data-placement="top" title="Remove Friends">
-                                <span class="glyphicon glyphicon-remove"></span>
-                              </button>
-                              <button type="button" class = "btn btn-success " href="#" data-toggle="tooltip" data-placement="top" title="Sent Mails">
-                                <span class="glyphicon glyphicon-envelope"></span>
-                              </button>
+                  {{#if friends.length}}
+                      {{#each friends}}
+                        <li class="list-group-item">
+                            <div class="col-xs-12 col-sm-12">
+                                <!-- email fullname phone-->
+                                <input type="hidden" name="" value="{{this.id}}">
+                                <p class="name" data-search="names"><span class="name glyphicon glyphicon-user" style="width:50px;"></span>{{this.fullname}}</p>
+                                <p class="email"><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>{{this.email}}</p>
+                                <p class="phone"><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>{{this.phone}}</p>
+                                <div class="pull-right">
+                                  <button type="button" class = "btn btn-danger " data-toggle="tooltip" data-placement="top" title="Romove Friends" >
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                  </button>
+                                  <button type="button" class = "btn btn-success " data-toggle="tooltip" data-placement="top" title="Send Mail">
+                                    <span class="glyphicon glyphicon-envelope one"></span>
+                                  </button>
+                                </div>
                             </div>
-                          </div>
-                          <div class="clearfix"></div>
-                      </li>
+                            <div class="clearfix"></div>
+                        </li>
+                      {{/each}}
+                  {{/if}}
                 </ul>
             </div>
         </div>
