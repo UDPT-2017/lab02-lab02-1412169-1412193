@@ -6,6 +6,20 @@ function Checking(value) {
   return resulf;
 }
 var feature = {
+  registerDefault: function (req, res) {
+    res.render("register", {
+        title: "Register Page",
+        layout: "application",
+        user: req.session.user
+    });
+  },
+  loginDefault: function (req, res) {
+    res.render("login", {
+        title: "Login Page",
+        layout: "application",
+        user: req.session.user
+    });
+  },
   register: function (req, res) {
      user.email = req.body.femail;
      user.password = req.body.fpassword;
