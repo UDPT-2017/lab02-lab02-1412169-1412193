@@ -1,5 +1,5 @@
-var user = require("../models/user.js"); // khai bao user
-var db = require("../models/database.js");
+var user = require("../OP/user.js"); // khai bao user
+var db = require("../models/user.js"); // xu ly feature
 
 function Checking(value) {
   var resulf = value === undefined || value.trim() === "" || value.length === 0;
@@ -72,4 +72,5 @@ var feature = {
       });
   }
 };
+
 module.exports = feature;

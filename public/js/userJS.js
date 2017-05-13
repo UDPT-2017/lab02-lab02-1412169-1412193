@@ -106,6 +106,7 @@ $(function () {
                 res.sinhvien.forEach(function (SV) {
                     ul.append('<li class="list-group-item">' + '<div class="col-xs-12 col-sm-12">' + '<input class="idText" type="hidden" name="id" value="' + SV.id + '">' + '<p class="fullname" data-search="names"><span class="name glyphicon glyphicon-user" style="width:50px;"></span>' + SV.fullname + '</p> <p class="email"><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>' + SV.email + '</p> <p class="phone"><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>' + SV.phone + '</p> <div class="pull-right">' + '<button type="button" class = "btn btn-success " href="#" data-toggle="tooltip" data-placement="top" title="Add Friends" button-add="addfriendBTN">' + '<span class="glyphicon glyphicon-plus"></span>' + '</button> </div> </div>  <div class="clearfix"></div> </li>');
                 });
+                $("#refreshfriend").click();
         },
         complete: function () {
           $('[data-toggle="tooltip"]').tooltip(); // cho phep hien thi cac cuc nho

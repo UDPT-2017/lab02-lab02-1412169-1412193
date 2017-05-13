@@ -106,7 +106,7 @@ module.exports = function(app) {
 
 
 
-    app.get("/users", function(req, res) {
+    /*app.get("/users", function(req, res) {
         res.render("user", {
             title: "User Page",
             layout: "application",
@@ -138,7 +138,26 @@ module.exports = function(app) {
             }
         })
         res.send("Add friend is success !");
-    });
+    });*/
+
+
+
+    app.get("/users", index.user.DefaultPage);
+    // test ajax
+    app.get("/users/list", index.user.refreshUser);
+    app.get("/users/friendlist", index.user.refreshListFriend);
+    //app.get("/users/:id", );
+    // dung de add friend
+    app.post("/users/addFriend", index.user.PushUser);
+
+
+
+
+
+
+
+
+
 
     app.get("/messages", function (req, res) {
         res.end("Hello This is a messages !!");
