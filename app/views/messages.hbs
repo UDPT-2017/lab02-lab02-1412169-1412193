@@ -1,0 +1,199 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/messagesCSS.css">
+<script>
+  $(document).ready(function() {
+    $('#recieve-button').on('click', function() {
+      $(this).css("background-color","lightgrey");
+      $(this).css("color","black");
+      $('#refresh-button').css("background-color","#1abc9c");
+      $('#refresh-button').css("color","white");
+      $.ajax({
+        url: '/messSend',
+        contentType: 'application/json',
+        success: function(response) {
+          //-------------------------
+          var theadEl = $('.title-table');
+          theadEl.html('');
+          response.headLineSend.forEach(function(m) {
+            theadEl.append('\
+                       <tr>\
+                          <td ><b>'+m.id+'</b></td>\
+                           <td> <b>' + m.reciever + '</b> </td>\
+                           <td> <b>' + m.content + '</b> </td>\
+                           <td> <b>' + m.timeSend +'</b> </td>\
+                           <td> <b>' + m.timeRead + '</b> </td>\
+                       </tr>\
+                   ');
+          });
+          //--------------------
+          var tbodyEl = $('.mess');
+          tbodyEl.html('');
+          response.messSend.forEach(function(m) {
+            tbodyEl.append('\
+                       <tr>\
+                           <td>' + m.id + '</td>\
+                           <td>' + m.reciever + '</td>\
+                           <td>' + m.content + '</td>\
+                           <td>' + m.timeSend + '</td>\
+                           <td>' + m.timeRead + '</td>\
+                       </tr>\
+                   ');
+          });
+        }
+      });
+    });
+
+    $("#refresh-button").on("click",function(){
+      $(this).css("background-color","lightgrey");
+      $(this).css("color","black");
+      $('#recieve-button').css("background-color","#1abc9c");
+      $('#recieve-button').css("color","white");
+      loadMess();
+    });
+
+    function loadMess() {
+      $.ajax({
+        url: '/messRecieve',
+        contentType: 'application/json',
+        success: function(response) {
+          var theadEl = $('.title-table');
+          theadEl.html('');
+          response.headLineRecieve.forEach(function(m) {
+            theadEl.append('\
+                       <tr>\
+                          <td> <b>'+m.id+'</b> </td>\
+                           <td> <b>' + m.sender + '</b> </td>\
+                           <td> <b>' + m.content + '</b> </td>\
+                           <td> <b>' + m.timeRecieve +'</b> </td>\
+                      </tr>\
+                       ');
+          });
+          //--------------------
+          var tbodyEl = $('.mess');
+          tbodyEl.html('');
+          response.messRecieve.forEach(function(m) {
+            if (m.state === 1) {
+              tbodyEl.append('\
+                         <tr>\
+                            <td style="color:#1abc9c">' + m.id + '</td>\
+                             <td style="color:#1abc9c">' + m.sender + '</td>\
+                             <td style="color:#1abc9c">' + m.title +'</td>\
+                             <td style="color:#1abc9c">' + m.timeRecieve + '</td>\
+                         </tr>\
+                     ');
+            }
+            if (m.state === 0) {
+              tbodyEl.append('\
+                         <tr>\
+                            <td class="idRecieve">' + m.id + '</td>\
+                             <td>' + m.sender + '</td>\
+                             <td>' + m.title + '</td>\
+                             <td>' + m.timeRecieve +'</td>\
+                         </tr>\
+                     ');
+            }
+          });
+        }
+      });
+    }
+    loadMess();
+
+    function sortTable() {
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table1
+      table = document.getElementById('table1');
+      switching = true;
+      while (switching) {
+        switching = false;
+        rows = table.getElementsByTagName('tr');
+        for (i = 1; i <= (rows.length - 1); i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName('td')[2];
+          y = rows[i + 1].getElementsByTagName('td')[2];
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+        }
+      }
+    }
+    sortTable();
+
+    $(".mess").on("click","tr",function() {;
+      $(this).css("color", "#1abc9c");
+      var idRecieve = $(this).find('.idRecieve').text();
+      $.ajax({
+              url:'/updateMess',
+              method: 'PUT',
+              contentType: 'application/json',
+              data: JSON.stringify({idRecieve: idRecieve}),
+              success: function(responce){
+                alert(responce);
+              }
+            });
+    });
+  });
+</script>
+<div class="wrapper-messages-page">
+  <div class="row">
+    <!--<div class="col-sm-12 col-md-2 text-center-sm">
+      <button class="btn btn-primary btn-block " type="button">T?o tin nh?n
+          </button>
+    </div>
+    <div class="col-sm-12 col-md-10 text-center-sm">
+      <button class="btn btn-primary friend btn-block" type="button">Xem danh sách b?n bè <span class="badge"> 4 </span>
+          </button>
+    </div>-->
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-2">
+      <div class="custom-collapse text-center">
+      </div>
+      <div class="" id="side-menu-collapse" style="padding: 0 0;">
+        <table class="table table-hovere text-center-sm" style="margin: 0 0; padding: 0 0;">
+          <tbody class="menu-message">
+            <tr>
+              <button class="btn btn-primary btn-block " type="button">T?o tin nh?n
+                  </button>
+            </tr>
+            <tr>
+              <button class="btn btn-primary friend btn-block" type="button">B?n bè <span class="badge"> 4 </span>
+                  </button>
+            </tr>
+
+            <tr>
+              <button class="btn btn-primary btn-block" id="recieve-button" type="button">Tin dã g?i <span class="badge"> 4 </span>
+                      </button>
+              </button>
+            </tr>
+            <tr>
+              <button class="btn btn-primary btn-block" id="refresh-button" type="button">Refresh
+                      </button>
+              </button>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-10">
+      <div class="table-responsive">
+        <div class="panel panel-default">
+          <table class="table table-hover" id="table1">
+            <thead class="title-table">
+              <tbody class="mess">
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
