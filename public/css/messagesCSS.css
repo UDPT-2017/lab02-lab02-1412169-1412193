@@ -1,0 +1,50 @@
+.row:nth-child(2) {
+    margin-top: 10px;
+    padding: 2px;
+}
+td {
+  font-size: 16px;
+}
+th {
+  font-size: 16px;
+}
+.thoi-gian {
+  width: 12%;
+}
+.nguoi-gui {
+  width: 20%;
+}
+
+@media (max-width: 768px){
+      .text-center-sm{
+        text-align: center;
+        padding: 3px;
+    }
+  }
+  @media (min-width: 768px){
+        .text-center-sm{
+          text-align: center;
+          padding-top: 3px;
+      }
+    }
+    @media (max-width: 768px){
+          tbody tr td{
+            display: block;
+        }
+      }
+
+@media (max-width: 768px){
+      thead tr{
+        display: none;
+    }
+    .sender{
+      font-weight: bold;
+      background-color: lightgrey;
+    }
+    .time {
+      font-size: 14px;
+    }
+    .test {
+      text-align: center;
+    }
+  }
