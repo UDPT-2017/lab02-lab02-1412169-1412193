@@ -38,12 +38,6 @@ var user = {
 
           res.send("Add friend is success !"); // send thong diep
       });
-      /*DanhSachBanBe.push(req.body.friend);
-      SinhVien.forEach(function(sv, index) {
-          if (sv.id == req.body.friend.id) {
-              SinhVien.splice(index, 1);
-          }
-      })*/
     }
 };
 
