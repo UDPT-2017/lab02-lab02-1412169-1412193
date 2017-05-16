@@ -18,7 +18,20 @@ var User = {
               if(err) {
                 callback("0", "Error is saveUser"); // that bai
               }
-              callback("1", "Register is Success!"); // thanh cong
+
+              db.query(query, param, function (err, res2) {
+                if(err) {
+                  callback("0", "Error is saveUser"); // that bai
+                }
+                var query2 = 'INSERT INTO public.danhsachfriend(macode) VALUES ($1);';
+                var param2 = [res2.rows[0].id];
+                db.query(query2, param, function (err, res3) {
+                  if(err) {
+                    callback("0", "Error is saveUser"); // that bai
+                  }
+                  callback("1", "Register is Success!"); // thanh con
+                });
+              });
             });
           }
       });

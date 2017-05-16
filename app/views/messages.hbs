@@ -1,0 +1,256 @@
+<link rel="stylesheet" href="/css/messagesCSS.css">
+<div class="wrapper-messages-page">
+    <div class="row">
+        <div class="col-sm-12 col-md-2">
+            <div class="custom-collapse text-center">
+            </div>
+            <div class="" id="side-menu-collapse" style="padding: 0 0;">
+                <table class="table table-hovere text-center-sm" style="margin: 0 0; padding: 0 0;">
+                    <tbody class="menu-message">
+                        <tr>
+                            <button class="btn btn-primary btn-block " type="button">
+                              <a href="/newmessage" style="color:white">Send Email</a>
+                            </button>
+                        </tr>
+                        <tr>
+                            <button class="btn btn-primary friend btn-block" type="button">
+                              <a href="/users" style="color:white">Friendlist</a>
+                            </button>
+                        </tr>
+
+                        <tr>
+                            <button class="btn btn-primary btn-block" id="recieve-button" type="button">Email sent
+                      </button>
+                            </button>
+                        </tr>
+                        <tr>
+                            <button class="btn btn-primary btn-block" id="refresh-button" type="button">Refresh
+                      </button>
+                            </button>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-10" id="messageiss">
+            <div class="">
+                <div class="table-responsive panel panel-default">
+                    <table class="table table-hover" id="table1">
+                        <thead class="title-table">
+                            <tbody class="mess">
+                                {{#if message.length}}
+                                    <tr id="headersTable">
+                                        <th><b> B</b></th>
+                                        <th><b> C</b></th>
+                                        <th><b> D</b></th>
+                                        <th><b> E</b></th>
+                                    </tr>
+                                    {{#each message}}
+                                        {{#if this.thoigianxem}}
+                                            <tr class="helloaction">
+                                                <td class="idRecieve" style="display:none"> {{this.messageid}}</td>
+                                                <td> {{this.chude}} </td>
+                                                <td> {{this.noidung}} </td>
+                                                <td> {{this.email}}</td>
+                                                <td> {{this.thoigiangui}}</td>
+                                            </tr>
+                                        {{else}}
+                                            <tr>
+                                                <td class="idRecieve" style="display:none"> {{this.messageid}}</td>
+                                                <td> {{this.chude}} </td>
+                                                <td> {{this.noidung}} </td>
+                                                <td> {{this.email}}</td>
+                                                <td> {{this.thoigiangui}}</td>
+                                            </tr>
+                                        {{/if}}
+
+                                    {{/each}}
+                                {{else}}
+                                    {{> ThongbaoNM}}
+                                {{/if}}
+                            </tbody>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function Testing1() {
+        $('#recieve-button').on('click', function() {
+            $(this).css("background-color", "lightgrey");
+            $(this).css("color", "black");
+            $('#refresh-button').css("background-color", "#1abc9c");
+            $('#refresh-button').css("color", "white");
+
+        });
+    }
+
+    function loadMess2(){
+      $.ajax({
+          url: '/messages/messSend',
+          contentType: 'application/json',
+          success: function(response) {
+              var theadEl = $('.title-table');
+              theadEl.html('');
+              theadEl.append('<tr id="headersTable"> <th><b> A</b></th><th><b> B</b></th><th><b> C</b></th><th><b> D</b></th><th><b> E</b></th></tr>');
+
+              var tbodyEl = $('.mess');
+              tbodyEl.html('');
+              response.messages.forEach(function(m) {
+                  if(m.thoigianxem !== null) {
+                    tbodyEl.append('\
+                       <tr class="helloaction1">\
+                           <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
+                           <td>' + m.chude + '</td>\
+                           <td>' + m.noidung + '</td>\
+                           <td>' + m.email + '</td>\
+                           <td>' + m.thoigiangui + '</td>\
+                           <td>' + m.thoigianxem + '</td>\
+                       </tr>\
+                       ');
+                  }else {
+                    tbodyEl.append('\
+                       <tr class="helloaction2">\
+                           <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
+                           <td>' + m.chude + '</td>\
+                           <td>' + m.noidung + '</td>\
+                           <td>' + m.email + '</td>\
+                           <td>' + m.thoigiangui + '</td>\
+                           <td>' + m.thoigianxem + '</td>\
+                       </tr>\
+                   ');
+                  }
+            });
+          }
+          , complete : function () {
+            sortTable();
+          }
+      });
+    }
+
+    function Tesing2() {
+        $("#refresh-button").on("click", function() {
+            $(this).css("background-color", "lightgrey");
+            $(this).css("color", "black");
+            $('#recieve-button').css("background-color", "#1abc9c");
+            $('#recieve-button').css("color", "white");
+            loadMess();
+        });
+    }
+
+    function loadMess() {
+        $.ajax({
+            url: '/messages/messRecieve',
+            contentType: 'application/json',
+            success: function(response) {
+                var theadEl = $('.title-table');
+                theadEl.html('');
+                theadEl.append('<tr id="headersTable"> <th><b> B</b></th><th><b> C</b></th><th><b> D</b></th><th><b> E</b></th></tr>');
+                //--------------------
+                var tbodyEl = $('.mess');
+                tbodyEl.html('');
+                response.messages.forEach(function(m) {
+                    if (m.thoigianxem !== null) {
+                        tbodyEl.append('\
+                          <tr class="helloaction1">\
+                              <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
+                              <td>' + m.chude + '</td>\
+                              <td>' + m.noidung + '</td>\
+                              <td>' + m.email + '</td>\
+                              <td>' + m.thoigiangui + '</td>\
+                          </tr>\
+                      ');
+                    }
+                    else{
+                        tbodyEl.append('\
+                       <tr>\
+                           <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
+                           <td>' + m.chude + '</td>\
+                           <td>' + m.noidung + '</td>\
+                           <td>' + m.email + '</td>\
+                           <td>' + m.thoigiangui + '</td>\
+                       </tr>\
+                   ');
+                    }
+                });
+            }
+            , complete : function () {
+              sortTable();
+            }
+        });
+    }
+    function reload() {
+      if($("#recieve-button").css("background-color") === "rgb(26, 188, 156)"){
+        loadMess();
+      }
+    }
+
+    function reload1() {
+      if($("#recieve-button").css("background-color") === "rgb(211, 211, 211)"){
+        loadMess2();
+      }
+    }
+
+    function sortTable() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table1
+        table = document.getElementById('table1');
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.getElementsByTagName('tr');
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName('td')[4];
+                y = rows[i + 1].getElementsByTagName('td')[4];
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+
+    $(function() {
+        sortTable();
+        Testing1();
+        Tesing2();
+        setInterval(reload, 10000);
+        setInterval(reload1, 1000);
+        $(".mess").on("click", "tr", function() {
+            if ($(this).hasClass("helloaction1") || $(this).hasClass("helloaction2")) {
+                return;
+            }
+            if ($(this).hasClass("helloaction")) {
+                return;
+            }
+            $(this).css("color", "#1abc9c");
+            var idRecieve = $(this).find('.idRecieve').text();
+            var d = new Date();
+            var n = d.getDate();
+            var m = d.getMonth();
+            var year = d.getYear();
+            var string = (year + 1900) + "-" + m + "-" + n;
+            var Messages = {
+              id: idRecieve,
+              Time: string
+            }
+            $.ajax({
+                    url:'/messages/updateMess',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({Messages: Messages}),
+                    success: function(responce){}
+            });
+        });
+    });
+</script>
