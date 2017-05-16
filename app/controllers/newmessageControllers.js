@@ -1,4 +1,4 @@
-var db = require("../models/UserFriend.js");
+var db = require("../models/newmessage.js");
 
 var newmessageController = {
     newmessageDefault: function (req, res) {
@@ -12,7 +12,10 @@ var newmessageController = {
       });
     },
     processnewmessage : function (req, res) {
-      res.redirect("/messages");
+      // chua xu ly luu thong tin
+      db.insertnewMessage(req.session.user, req.body, function (message) {
+          res.redirect("/messages");
+      });
     }
 }
 

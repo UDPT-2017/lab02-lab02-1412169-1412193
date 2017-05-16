@@ -7,17 +7,13 @@ var checking = require("./functionChecking.js");
 module.exports = function(app) {
 
     //index.home.homeDefault
-    var homeRouter = Router()
-        .get("/", index.home.homeDefault);
+    var homeRouter = Router().get("/", index.home.homeDefault);
 
-    var userRouter = Router()
-        .get("/", function() {});
+    var userRouter = Router().get("/", function() {});
 
-    var aboutRouter = Router()
-        .get("/", function() {});
+    var aboutRouter = Router().get("/", function() {});
 
-    var messagesRouter = Router()
-        .get("/", function() {});
+    var messagesRouter = Router().get("/", function() {});
 
     app.get("/login", checking.isLoggedLong , index.featureUser.loginDefault);
     app.post("/login", index.featureUser.login);
@@ -36,9 +32,10 @@ module.exports = function(app) {
     app.post("/newmessage", checking.isLoggedIn, index.newmessages.processnewmessage);
 
 
-    app.get("/messages", function (req, res) {
-        res.end("Hello This is a messages !!");
-    });
+    app.get("/messages",checking.isLoggedIn, index.message.DefaultPage);
+    app.get("/messages/messSend",checking.isLoggedIn, index.message.loadMessagesSent);
+    app.get("/messages/messRecieve",checking.isLoggedIn, index.message.refreshMessage);
+    app.post("/messages/updateMess", checking.isLoggedIn, index.message.updateMessage);
 
     // xay dung logout
     app.get("/logout", index.other.logout);
