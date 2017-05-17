@@ -13,7 +13,8 @@ var user = {
                     layout: "application",
                     user: req.session.user,
                     sv: listUser,
-                    friends: listFriend
+                    friends: listFriend,
+                    list : listFriend
                 });
             });
         });

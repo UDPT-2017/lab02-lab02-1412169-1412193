@@ -43,5 +43,4 @@ module.exports = function(app) {
     app.use("/user", userRouter);
     app.use("/photo", aboutRouter);
     app.use("/contact", messagesRouter);
-
 }
