@@ -70,4 +70,8 @@ th {
     .test {
       text-align: center;
     }
+    .chude{
+      background-color: lightgrey;
+      font-weight: bold;
+    }
 }

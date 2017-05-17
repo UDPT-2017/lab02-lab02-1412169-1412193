@@ -14,7 +14,7 @@
                         </tr>
                         <tr>
                             <button class="btn btn-primary friend btn-block" type="button">
-                              <a href="/users" style="color:white">Friendlist</a>
+                              <a href="/users" style="color:white">Friend List</a>
                             </button>
                         </tr>
 
@@ -42,16 +42,16 @@
                             <tbody class="mess">
                                 {{#if message.length}}
                                     <tr id="headersTable">
-                                        <th><b> B</b></th>
-                                        <th><b> C</b></th>
-                                        <th><b> D</b></th>
-                                        <th><b> E</b></th>
+                                        <th><b> Subject </b></th>
+                                        <th><b> Content</b></th>
+                                        <th><b> Sender </b></th>
+                                        <th><b> Receiving Time </b></th>
                                     </tr>
                                     {{#each message}}
                                         {{#if this.thoigianxem}}
                                             <tr class="helloaction">
                                                 <td class="idRecieve" style="display:none"> {{this.messageid}}</td>
-                                                <td> {{this.chude}} </td>
+                                                <td class="chude"> {{this.chude}} </td>
                                                 <td> {{this.noidung}} </td>
                                                 <td> {{this.email}}</td>
                                                 <td> {{this.thoigiangui}}</td>
@@ -59,7 +59,7 @@
                                         {{else}}
                                             <tr>
                                                 <td class="idRecieve" style="display:none"> {{this.messageid}}</td>
-                                                <td> {{this.chude}} </td>
+                                                <td class="chude"> {{this.chude}} </td>
                                                 <td> {{this.noidung}} </td>
                                                 <td> {{this.email}}</td>
                                                 <td> {{this.thoigiangui}}</td>
@@ -80,6 +80,7 @@
 </div>
 
 <script>
+
     function Testing1() {
         $('#recieve-button').on('click', function() {
             $(this).css("background-color", "lightgrey");
@@ -89,7 +90,6 @@
 
         });
     }
-
     function loadMess2(){
       $.ajax({
           url: '/messages/messSend',
@@ -97,7 +97,15 @@
           success: function(response) {
               var theadEl = $('.title-table');
               theadEl.html('');
-              theadEl.append('<tr id="headersTable"> <th><b> A</b></th><th><b> B</b></th><th><b> C</b></th><th><b> D</b></th><th><b> E</b></th></tr>');
+              theadEl.append('\
+              <tr id="headersTable"> \
+                  <th><b>Subject</b></th>\
+                  <th><b>Content</b></th>\
+                  <th><b>Receiver</b></th>\
+                  <th><b>Sending Time</b></th>\
+                  <th><b>Reading Time</b></th>\
+              </tr>\
+              ');
 
               var tbodyEl = $('.mess');
               tbodyEl.html('');
@@ -106,7 +114,7 @@
                     tbodyEl.append('\
                        <tr class="helloaction1">\
                            <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
-                           <td>' + m.chude + '</td>\
+                           <td class="chude">' + m.chude + '</td>\
                            <td>' + m.noidung + '</td>\
                            <td>' + m.email + '</td>\
                            <td>' + m.thoigiangui + '</td>\
@@ -117,7 +125,7 @@
                     tbodyEl.append('\
                        <tr class="helloaction2">\
                            <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
-                           <td>' + m.chude + '</td>\
+                           <td class="chude">' + m.chude + '</td>\
                            <td>' + m.noidung + '</td>\
                            <td>' + m.email + '</td>\
                            <td>' + m.thoigiangui + '</td>\
@@ -132,7 +140,6 @@
           }
       });
     }
-
     function Tesing2() {
         $("#refresh-button").on("click", function() {
             $(this).css("background-color", "lightgrey");
@@ -142,7 +149,6 @@
             loadMess();
         });
     }
-
     function loadMess() {
         $.ajax({
             url: '/messages/messRecieve',
@@ -150,7 +156,7 @@
             success: function(response) {
                 var theadEl = $('.title-table');
                 theadEl.html('');
-                theadEl.append('<tr id="headersTable"> <th><b> B</b></th><th><b> C</b></th><th><b> D</b></th><th><b> E</b></th></tr>');
+                theadEl.append('<tr id="headersTable"> <th><b>Subject</b></th><th><b> Content</b></th><th><b>Sender</b></th><th><b>Receiving Time</b></th></tr>');
                 //--------------------
                 var tbodyEl = $('.mess');
                 tbodyEl.html('');
@@ -159,7 +165,7 @@
                         tbodyEl.append('\
                           <tr class="helloaction1">\
                               <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
-                              <td>' + m.chude + '</td>\
+                              <td class="chude">' + m.chude + '</td>\
                               <td>' + m.noidung + '</td>\
                               <td>' + m.email + '</td>\
                               <td>' + m.thoigiangui + '</td>\
@@ -170,7 +176,7 @@
                         tbodyEl.append('\
                        <tr>\
                            <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
-                           <td>' + m.chude + '</td>\
+                           <td class="chude">' + m.chude + '</td>\
                            <td>' + m.noidung + '</td>\
                            <td>' + m.email + '</td>\
                            <td>' + m.thoigiangui + '</td>\
@@ -187,7 +193,24 @@
     function reload() {
       if($("#recieve-button").css("background-color") === "rgb(26, 188, 156)"){
         loadMess();
+        loadTime();
       }
+    }
+    function loadTime(){
+      $.ajax({
+        url: '/messages/updateTime',
+        contentType: 'application/json',
+        success: function(response){
+          time = "Được refresh lúc  " + response;
+          var timeUpdate = $(".menu-message");
+          timeUpdate.html('');
+          timeUpdate.append('\
+               <tr>\
+                <td>' + time + '</td>\
+               </tr>\
+            ');
+        }
+      })
     }
 
     function reload1() {
@@ -195,7 +218,6 @@
         loadMess2();
       }
     }
-
     function sortTable() {
         var table, rows, switching, i, x, y, shouldSwitch;
         table1
