@@ -147,6 +147,17 @@
             $('#recieve-button').css("background-color", "#1abc9c");
             $('#recieve-button').css("color", "white");
             loadMess();
+            var dt = new Date();
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+            time1 = "Được refresh lúc  " + time;
+            var timeUpdate = $(".menu-message");
+            timeUpdate.html('');
+            timeUpdate.append('\
+                 <tr>\
+                  <td>' + time1 + '</td>\
+                 </tr>\
+              ');
+
         });
     }
     function loadMess() {
@@ -193,26 +204,18 @@
     function reload() {
       if($("#recieve-button").css("background-color") === "rgb(26, 188, 156)"){
         loadMess();
-        loadTime();
+        var dt = new Date();
+        var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+        time1 = "Được refresh lúc  " + time;
+        var timeUpdate = $(".menu-message");
+        timeUpdate.html('');
+        timeUpdate.append('\
+             <tr>\
+              <td>' + time1 + '</td>\
+             </tr>\
+          ');
       }
     }
-    function loadTime(){
-      $.ajax({
-        url: '/messages/updateTime',
-        contentType: 'application/json',
-        success: function(response){
-          time = "Được refresh lúc  " + response;
-          var timeUpdate = $(".menu-message");
-          timeUpdate.html('');
-          timeUpdate.append('\
-               <tr>\
-                <td>' + time + '</td>\
-               </tr>\
-            ');
-        }
-      })
-    }
-
     function reload1() {
       if($("#recieve-button").css("background-color") === "rgb(211, 211, 211)"){
         loadMess2();
@@ -241,13 +244,23 @@
             }
         }
     }
-
+    function reload3(){
+      var timeUpdate = $(".menu-message");
+      timeUpdate.html('');
+      timeUpdate.append('\
+           <tr>\
+            <td>Refresh 5s trước</td>\
+           </tr>\
+        ');
+    }
     $(function() {
         sortTable();
         Testing1();
         Tesing2();
         setInterval(reload, 10000);
         setInterval(reload1, 1000);
+        setInterval(reload3, 4000);
+
         $(".mess").on("click", "tr", function() {
             if ($(this).hasClass("helloaction1") || $(this).hasClass("helloaction2")) {
                 return;
