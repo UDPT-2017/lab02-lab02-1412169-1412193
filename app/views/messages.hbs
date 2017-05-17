@@ -87,6 +87,17 @@
             $(this).css("color", "black");
             $('#refresh-button').css("background-color", "#1abc9c");
             $('#refresh-button').css("color", "white");
+            loadMess2();
+            var dt = new Date();
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+            time1 = "refresh " + time;
+            var timeUpdate = $(".menu-message");
+            timeUpdate.html('');
+            timeUpdate.append('\
+                 <tr>\
+                  <td>' + time1 + '</td>\
+                 </tr>\
+              ');
 
         });
     }
@@ -140,6 +151,7 @@
           }
       });
     }
+
     function Tesing2() {
         $("#refresh-button").on("click", function() {
             $(this).css("background-color", "lightgrey");
@@ -149,7 +161,7 @@
             loadMess();
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-            time1 = "Được refresh lúc  " + time;
+            time1 = "refresh " + time;
             var timeUpdate = $(".menu-message");
             timeUpdate.html('');
             timeUpdate.append('\
@@ -206,7 +218,7 @@
         loadMess();
         var dt = new Date();
         var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-        time1 = "Được refresh lúc  " + time;
+        time1 = "refresh " + time;
         var timeUpdate = $(".menu-message");
         timeUpdate.html('');
         timeUpdate.append('\
@@ -219,6 +231,16 @@
     function reload1() {
       if($("#recieve-button").css("background-color") === "rgb(211, 211, 211)"){
         loadMess2();
+        var dt = new Date();
+        var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+        time1 = "refresh " + time;
+        var timeUpdate = $(".menu-message");
+        timeUpdate.html('');
+        timeUpdate.append('\
+             <tr>\
+              <td>' + time1 + '</td>\
+             </tr>\
+          ');
       }
     }
     function sortTable() {
@@ -244,22 +266,13 @@
             }
         }
     }
-    function reload3(){
-      var timeUpdate = $(".menu-message");
-      timeUpdate.html('');
-      timeUpdate.append('\
-           <tr>\
-            <td>Refresh 5s trước</td>\
-           </tr>\
-        ');
-    }
+
     $(function() {
         sortTable();
         Testing1();
         Tesing2();
-        setInterval(reload, 10000);
-        setInterval(reload1, 1000);
-        setInterval(reload3, 4000);
+        setInterval(reload,  10000);
+        setInterval(reload1, 10000);
 
         $(".mess").on("click", "tr", function() {
             if ($(this).hasClass("helloaction1") || $(this).hasClass("helloaction2")) {

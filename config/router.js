@@ -36,11 +36,6 @@ module.exports = function(app) {
     app.get("/messages/messSend",checking.isLoggedIn, index.message.loadMessagesSent);
     app.get("/messages/messRecieve",checking.isLoggedIn, index.message.refreshMessage);
     app.post("/messages/updateMess", checking.isLoggedIn, index.message.updateMessage);
-    app.get("/messages/updateTime", function(req,res){
-      var dt = new Date();
-      var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-      res.send(time);
-    })
     // xay dung logout
     app.get("/logout", index.other.logout);
 
