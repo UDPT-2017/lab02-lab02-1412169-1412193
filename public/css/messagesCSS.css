@@ -1,0 +1,77 @@
+.helloaction {
+  color: #1abc9c;
+}
+.helloaction1 {
+  color: #1abc9c;
+}
+.helloaction2 {
+  color: black;
+}
+.row:nth-child(2) {
+    margin-top: 10px;
+    padding: 2px;
+}
+td {
+  font-size: 16px;
+}
+th {
+  font-size: 16px;
+}
+.thoi-gian {
+  width: 12%;
+}
+.nguoi-gui {
+  width: 20%;
+}
+
+@media (max-width: 768px){
+      .text-center-sm{
+        text-align: center;
+        padding: 3px;
+    }
+  }
+  @media (min-width: 768px){
+        .text-center-sm{
+          text-align: center;
+          padding-top: 3px;
+      }
+    }
+    @media (max-width: 768px){
+          tbody tr td{
+            display: block;
+        }
+      }
+
+@media screen and (max-width: 768px){
+      .table-responsive {
+          width: 100%;
+          margin-bottom: 15px;
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          -ms-overflow-style: -ms-autohiding-scrollbar;
+          border: 1px solid #DDD;
+      }
+    #messageiss {
+      margin-top: 20px;
+    }
+    #headersTable {
+      display: none;
+    }
+    thead tr{
+    }
+    .sender{
+      font-weight: bold;
+      background-color: lightgrey;
+    }
+    .time {
+      font-size: 14px;
+    }
+    .test {
+      text-align: center;
+    }
+    .chude{
+      background-color: lightgrey;
+      font-weight: bold;
+    }
+}

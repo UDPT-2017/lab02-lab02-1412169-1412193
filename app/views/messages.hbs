@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="/css/messagesCSS.css">
+<div class="wrapper-messages-page">
+    {{> popupuser}}
+    <div class="row">
+        <div class="col-sm-12 col-md-2">
+            <div class="custom-collapse text-center">
+            </div>
+            <div class="" id="side-menu-collapse" style="padding: 0 0;">
+                <table class="table table-hovere text-center-sm" style="margin: 0 0; padding: 0 0;">
+                    <tbody class="menu-message">
+                        <tr>
+                            <button class="btn btn-primary btn-block " type="button">
+                              <a href="/newmessage" style="color:white">Send Email</a>
+                            </button>
+                        </tr>
+                        <tr>
+                            <button class="btn btn-primary friend btn-block" type="button">
+                              <a href="/users" style="color:white">Friend List</a>
+                            </button>
+                        </tr>
+
+                        <tr>
+                            <button class="btn btn-primary btn-block" id="recieve-button" type="button">Email sent
+                      </button>
+                            </button>
+                        </tr>
+                        <tr>
+                            <button class="btn btn-primary btn-block" id="refresh-button" type="button">Refresh
+                      </button>
+                            </button>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-10" id="messageiss">
+            <div class="">
+                <div class="table-responsive panel panel-default">
+                    <table class="table table-hover" id="table1">
+                        <thead class="title-table">
+                            <tbody class="mess">
+                                {{#if message.length}}
+                                    <tr id="headersTable">
+                                        <th><b> Subject </b></th>
+                                        <!-- <th><b> Content</b></th> -->
+                                        <th><b> Sender </b></th>
+                                        <th><b> Receiving Time </b></th>
+                                    </tr>
+                                    {{#each message}}
+                                        {{#if this.thoigianxem}}
+                                            <tr class="helloaction">
+                                                <td class="idRecieve" style="display:none"> {{this.messageid}}</td>
+                                                <td class="chude"> {{this.chude}} </td>
+                                                <td class="noidung" style="display:none;"> {{this.noidung}} </td>
+                                                <td class="email"> {{this.email}}</td>
+                                                <td> {{this.thoigiangui}}</td>
+                                            </tr>
+                                        {{else}}
+                                            <tr>
+                                                <td class="idRecieve" style="display:none"> {{this.messageid}}</td>
+                                                <td class="chude"> {{this.chude}} </td>
+                                                <td class="noidung" style="display:none;"> {{this.noidung}} </td>
+                                                <td class="email"> {{this.email}}</td>
+                                                <td> {{this.thoigiangui}}</td>
+                                            </tr>
+                                        {{/if}}
+
+                                    {{/each}}
+                                {{else}}
+                                    {{> ThongbaoNM}}
+                                {{/if}}
+                            </tbody>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/messages.js"></script>

@@ -4,8 +4,8 @@
   "description": "**Name of your app** là một bài tập 2 tại môn UDPT. Ứng dụng cho phép người dùng gửi tin nhắn (email) cho người dùng khác.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-    ,"start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
-    "express-session": "^1.15.2"
+    "express-session": "^1.15.2",
+    "markdown": "^0.5.0",
+    "pg": "^6.1.5"
   }
 }
