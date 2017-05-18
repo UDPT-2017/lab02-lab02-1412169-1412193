@@ -75,14 +75,12 @@ function AddUser() {
             email : emailClient,
             phone : phoneClient
         }; // 1 doi tuong de gui len server
-        console.log(userFriendAdd);
         $.ajax({
             url: "/users/addFriend",
             method: "POST",
             contentType : "application/json",
             data: JSON.stringify({friend : userFriendAdd}),
             success: function (res) {
-              console.log(res);
               $("#refreshPagefriend").click(); // goi su kien
               $("#refreshfriend").click();
             }
@@ -90,7 +88,21 @@ function AddUser() {
     });
 }
 function DeleteUser() {
-
+  // se viet trong day
+  $("#contact-list").on('click', '[button-remove="removeFriend"]', function () {
+      var li = $(this).closest("li");
+      var idClient = li.find(".idText").val();
+      $.ajax({
+          url: "/users/deleteFriend",
+          method: "POST",
+          contentType : "application/json",
+          data: JSON.stringify({friend : idClient}),
+          success: function (res) {
+            $("#refreshPagefriend").click(); // goi su kien
+            $("#refreshfriend").click();
+          }
+      })
+  });
 }
 function clickSendmail() {
     $("#contact-list").on("click", '[button-send="sendMail"]', function () {
@@ -103,6 +115,7 @@ $(function () {
   clickSendmail();
   ScriptUser();
   AddUser();
+  DeleteUser();
   $("#refreshPagefriend").click(function () {
     $.ajax({
         url: "/users/list",
@@ -134,7 +147,7 @@ $(function () {
                 select.html("");
                 res.listfriend.forEach(function (SV) {
                     select.append('<option value="'+ SV.id + '">' + SV.email + '</option>');
-                    ul.append('<li class="list-group-item">' + '<div class="col-xs-12 col-sm-12">' + '<input class="idText" type="hidden" name="id" value="' + SV.id + '">' + '<p class="fullname" data-search="names"><span class="name glyphicon glyphicon-user" style="width:50px;"></span>' + SV.fullname + '</p> <p class="email"><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>' + SV.email + '</p> <p class="phone"><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>' + SV.phone + '</p> <div class="pull-right">' +  '<button type="button" class = "btn btn-danger " data-toggle="tooltip" data-placement="top" title="Romove Friends"> <span class="glyphicon glyphicon-remove"></span> </button> <button button-send="sendMail"  type="button" class="btn btn-success" data-toggle="modal" data-target="#enquirypopup" title="Send Mail"><span class="glyphicon glyphicon-envelope one"></span></button>'  +'</div> </div>  <div class="clearfix"></div></li>');
+                    ul.append('<li class="list-group-item">' + '<div class="col-xs-12 col-sm-12">' + '<input class="idText" type="hidden" name="id" value="' + SV.id + '">' + '<p class="fullname" data-search="names"><span class="name glyphicon glyphicon-user" style="width:50px;"></span>' + SV.fullname + '</p> <p class="email"><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>' + SV.email + '</p> <p class="phone"><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>' + SV.phone + '</p> <div class="pull-right">' +  '<button button-remove="removeFriend" type="button" class = "btn btn-danger " data-toggle="tooltip" data-placement="top" title="Romove Friends"> <span class="glyphicon glyphicon-remove"></span> </button> <button button-send="sendMail"  type="button" class="btn btn-success" data-toggle="modal" data-target="#enquirypopup" title="Send Mail"><span class="glyphicon glyphicon-envelope one"></span></button>'  +'</div> </div>  <div class="clearfix"></div></li>');
                 });
         },
         complete: function () {

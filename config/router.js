@@ -27,6 +27,7 @@ module.exports = function(app) {
     app.get("/users/list", checking.isLoggedIn, index.user.refreshUser);
     app.get("/users/friendlist", checking.isLoggedIn, index.user.refreshListFriend);
     app.post("/users/addFriend", checking.isLoggedIn, index.user.PushUser);
+    app.post("/users/deleteFriend", checking.isLoggedIn, index.user.DeleteUser );
 
     app.get("/newmessage", checking.isLoggedIn, index.newmessages.newmessageDefault);
     app.post("/newmessage", checking.isLoggedIn, index.newmessages.processnewmessage);
