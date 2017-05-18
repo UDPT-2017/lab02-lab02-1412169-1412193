@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/messagesCSS.css">
 <div class="wrapper-messages-page">
+    {{> popupuser}}
     <div class="row">
         <div class="col-sm-12 col-md-2">
             <div class="custom-collapse text-center">
@@ -52,16 +53,16 @@
                                             <tr class="helloaction">
                                                 <td class="idRecieve" style="display:none"> {{this.messageid}}</td>
                                                 <td class="chude"> {{this.chude}} </td>
-                                                <td> {{this.noidung}} </td>
-                                                <td> {{this.email}}</td>
+                                                <td class="noidung"> {{this.noidung}} </td>
+                                                <td class="email"> {{this.email}}</td>
                                                 <td> {{this.thoigiangui}}</td>
                                             </tr>
                                         {{else}}
                                             <tr>
                                                 <td class="idRecieve" style="display:none"> {{this.messageid}}</td>
                                                 <td class="chude"> {{this.chude}} </td>
-                                                <td> {{this.noidung}} </td>
-                                                <td> {{this.email}}</td>
+                                                <td class="noidung"> {{this.noidung}} </td>
+                                                <td class="email"> {{this.email}}</td>
                                                 <td> {{this.thoigiangui}}</td>
                                             </tr>
                                         {{/if}}
@@ -126,8 +127,8 @@
                        <tr class="helloaction1">\
                            <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
                            <td class="chude">' + m.chude + '</td>\
-                           <td>' + m.noidung + '</td>\
-                           <td>' + m.email + '</td>\
+                           <td class="noidung">' + m.noidung + '</td>\
+                           <td class="email">' + m.email + '</td>\
                            <td>' + m.thoigiangui + '</td>\
                            <td>' + m.thoigianxem + '</td>\
                        </tr>\
@@ -137,8 +138,8 @@
                        <tr class="helloaction2">\
                            <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
                            <td class="chude">' + m.chude + '</td>\
-                           <td>' + m.noidung + '</td>\
-                           <td>' + m.email + '</td>\
+                           <td class="noidung">' + m.noidung + '</td>\
+                           <td class="email">' + m.email + '</td>\
                            <td>' + m.thoigiangui + '</td>\
                            <td>' + m.thoigianxem + '</td>\
                        </tr>\
@@ -189,8 +190,8 @@
                           <tr class="helloaction1">\
                               <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
                               <td class="chude">' + m.chude + '</td>\
-                              <td>' + m.noidung + '</td>\
-                              <td>' + m.email + '</td>\
+                              <td class="noidung">' + m.noidung + '</td>\
+                              <td class="email">' + m.email + '</td>\
                               <td>' + m.thoigiangui + '</td>\
                           </tr>\
                       ');
@@ -200,9 +201,9 @@
                        <tr>\
                            <td class="idRecieve" style="display:none">' + m.messageid + '</td>\
                            <td class="chude">' + m.chude + '</td>\
-                           <td>' + m.noidung + '</td>\
-                           <td>' + m.email + '</td>\
-                           <td>' + m.thoigiangui + '</td>\
+                           <td class="noidung">' + m.noidung + '</td>\
+                           <td class="email">' + m.email + '</td>\
+                           <td class="">' + m.thoigiangui + '</td>\
                        </tr>\
                    ');
                     }
@@ -266,39 +267,67 @@
             }
         }
     }
-
+    function processDC() {
+      $(".mess").on("click", "tr", function () {
+          var tr = $(this).closest("tr");
+          $(".mess tr").attr("data-toggle", "modal");
+          $(".mess tr").attr("data-target", "#enquirypopup");
+          var chude = tr.find(".chude").text();
+          var noidung = tr.find(".noidung").text();
+          var email = tr.find(".email").text();
+          console.log(chude);
+          console.log(noidung);
+          console.log(email);
+          var sel = $("#sel1");
+          var chudes = $("#chudeEMAIL");
+          var noidungs = $("#noidung");
+          noidungs.html('');
+          sel.html('');
+          sel.append('<option readonly>' + email + '</option>');
+          chudes.val(chude);
+          noidungs.append('<b> abc <b>');
+          $("#sentButton").css("display", "none");
+          chudes.attr("readonly", true);
+          noidungs.attr("readonly", true);
+          chudes.css("background-color", "black");
+          noidungs.css("background-color", "black");
+      });
+    }
+    function clickonrow() {
+      $(".mess").on("click", "tr", function() {
+          if ($(this).hasClass("helloaction1") || $(this).hasClass("helloaction2")) {
+              return;
+          }
+          if ($(this).hasClass("helloaction")) {
+              return;
+          }
+          $(this).css("color", "#1abc9c");
+          var idRecieve = $(this).find('.idRecieve').text();
+          var d = new Date();
+          var n = d.getDate();
+          var m = d.getMonth();
+          var year = d.getYear();
+          var string = (year + 1900) + "-" + m + "-" + n;
+          var Messages = {
+            id: idRecieve,
+            Time: string
+          }
+          $.ajax({
+                  url:'/messages/updateMess',
+                  method: 'POST',
+                  contentType: 'application/json',
+                  data: JSON.stringify({Messages: Messages}),
+                  success: function(responce){}
+          });
+      });
+    }
     $(function() {
         sortTable();
         Testing1();
         Tesing2();
         setInterval(reload,  10000);
         setInterval(reload1, 10000);
-
-        $(".mess").on("click", "tr", function() {
-            if ($(this).hasClass("helloaction1") || $(this).hasClass("helloaction2")) {
-                return;
-            }
-            if ($(this).hasClass("helloaction")) {
-                return;
-            }
-            $(this).css("color", "#1abc9c");
-            var idRecieve = $(this).find('.idRecieve').text();
-            var d = new Date();
-            var n = d.getDate();
-            var m = d.getMonth();
-            var year = d.getYear();
-            var string = (year + 1900) + "-" + m + "-" + n;
-            var Messages = {
-              id: idRecieve,
-              Time: string
-            }
-            $.ajax({
-                    url:'/messages/updateMess',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({Messages: Messages}),
-                    success: function(responce){}
-            });
-        });
+        processDC();
+        clickonrow();
     });
 </script>

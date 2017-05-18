@@ -132,13 +132,6 @@ $(function () {
                 var select = $("#sel1");
                 ul.html("");
                 select.html("");
-                /*<select name="EmailID" class="form-control" id="sel1">
-                  {{#if list.length}}
-                      {{#each list}}
-                        <option value="{{this.id}}">{{this.email}}</option>
-                      {{/each}}
-                  {{/if}}
-                </select>*/
                 res.listfriend.forEach(function (SV) {
                     select.append('<option value="'+ SV.id + '">' + SV.email + '</option>');
                     ul.append('<li class="list-group-item">' + '<div class="col-xs-12 col-sm-12">' + '<input class="idText" type="hidden" name="id" value="' + SV.id + '">' + '<p class="fullname" data-search="names"><span class="name glyphicon glyphicon-user" style="width:50px;"></span>' + SV.fullname + '</p> <p class="email"><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>' + SV.email + '</p> <p class="phone"><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>' + SV.phone + '</p> <div class="pull-right">' +  '<button type="button" class = "btn btn-danger " data-toggle="tooltip" data-placement="top" title="Romove Friends"> <span class="glyphicon glyphicon-remove"></span> </button> <button button-send="sendMail"  type="button" class="btn btn-success" data-toggle="modal" data-target="#enquirypopup" title="Send Mail"><span class="glyphicon glyphicon-envelope one"></span></button>'  +'</div> </div>  <div class="clearfix"></div></li>');
