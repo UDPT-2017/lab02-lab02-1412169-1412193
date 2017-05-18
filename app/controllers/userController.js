@@ -13,7 +13,8 @@ var user = {
                     layout: "application",
                     user: req.session.user,
                     sv: listUser,
-                    friends: listFriend
+                    friends: listFriend,
+                    list : listFriend
                 });
             });
         });
@@ -34,9 +35,13 @@ var user = {
     },
     PushUser: function (req, res) {
       db.AddFriend(req.body.friend,req.session.user,function (message) {
-          // don't
-
           res.send("Add friend is success !"); // send thong diep
+      });
+    },
+    DeleteUser: function (req, res) {
+      //console.log(req.body);
+      db.deleteFriend(req.session.user, req.body.friend, function (message) {
+        res.send("Delete friend is success !"); // send thong diep
       });
     }
 };

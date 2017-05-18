@@ -36,9 +36,29 @@ userPage = {
             return console.error('Error: ', err);
         }
         var mads = resulf.rows[0].mads;
-        console.log(mads);
         var query1 = 'INSERT INTO public.chitietdanhsach(mads, macode) VALUES ($1, $2);'; // lay ma danh sach
         var param1 = [mads, id];
+        db.query(query1, param1, function (err, resulf1) {
+          if(err) {
+              return console.error('Error: ', err);
+          }
+          callback("Insert Success !");
+        });
+      });
+    },
+    deleteFriend: function (user, id, callback) {
+
+      var idPre = id;
+      var id = user.id;
+      var query = 'select mads from danhsachfriend where macode = $1'; // lay ma danh sach
+      var param = [id];
+      db.query(query, param, function (err, resulf) {
+        if(err) {
+            return console.error('Error: ', err);
+        }
+        var mads = resulf.rows[0].mads;
+        var query1 = 'DELETE FROM chitietdanhsach WHERE mads = $1 and macode = $2;'; // lay ma danh sach
+        var param1 = [mads, idPre];
         db.query(query1, param1, function (err, resulf1) {
           if(err) {
               return console.error('Error: ', err);
