@@ -6,7 +6,7 @@ Thành viên:
 * [x] **1412193** Nguyễn Thái Học (NguyenThaiHoc1)
 * [x] **1412169** Hồ Thảo Hiền (HoThaoHien)
 
-URL: **URL hosting của bài tập**
+URL: **https://mywebemail.herokuapp.com**
 
 ## Yêu cầu
 
