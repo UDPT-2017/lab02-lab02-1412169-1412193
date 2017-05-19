@@ -76,12 +76,13 @@ var feature = {
             });
           }else {
             req.session.user = userPre;
-            res.render ("login", {
+			res.redirect("/messages");
+            /*res.render ("login", {
               title: "login",
               layout: "application",
               successMess: message,
               user : req.session.user
-            });
+            });*/
           }
       });
   }
