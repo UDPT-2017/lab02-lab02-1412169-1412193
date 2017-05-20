@@ -49,8 +49,8 @@ Liệt kê các **yêu cầu nâng cao** đã thực hiện:
 * [ ] Chức năng 2
 
 ## Demo
+https://www.youtube.com/watch?v=fVIU0Bg66AI&feature=youtu.be
 
-Link ảnh GIF demo ứng dụng:
 
 
 
